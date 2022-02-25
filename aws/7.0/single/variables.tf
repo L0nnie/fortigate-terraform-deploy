@@ -1,14 +1,14 @@
 //AWS Configuration
-variable access_key {}
-variable secret_key {}
+variable "access_key" {}
+variable "secret_key" {}
 
 variable "region" {
-  default = "eu-west-1"
+  default = "us-east-1"
 }
 
 // Availability zones for the region
 variable "az1" {
-  default = "eu-west-1a"
+  default = "us-east-1a"
 }
 
 variable "vpccidr" {
@@ -27,12 +27,12 @@ variable "privatecidraz1" {
 // License Type to create FortiGate-VM
 // Provide the license type for FortiGate-VM Instances, either byol or payg.
 variable "license_type" {
-  default     = "byol"
+  default = "payg"
 }
 
 // AMIs are for FGTVM AWS(PAYG) - 7.0.3
 variable "fgtvmami" {
-  type = map
+  type = map(any)
   default = {
     us-west-2      = "ami-014b0761f581d0e9d"
     us-west-1      = "ami-0e6d4eb48ac4956e0"
@@ -60,7 +60,7 @@ variable "fgtvmami" {
 
 // AMIs are for FGTVM AWS(BYOL) - 7.0.3
 variable "fgtvmbyolami" {
-  type = map
+  type = map(any)
   default = {
     us-west-2      = "ami-083a0794c27f644cd"
     us-west-1      = "ami-02f74eacda2205a3f"
@@ -91,11 +91,11 @@ variable "size" {
 
 //  Existing SSH Key on the AWS 
 variable "keyname" {
-  default = "<AWS SSH KEY>"
+  default = "MyWebDMZacg"
 }
 
 variable "adminsport" {
-  default = "8443"
+  default = "443"
 }
 
 variable "bootstrap-fgtvm" {

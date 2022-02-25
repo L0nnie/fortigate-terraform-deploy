@@ -6,7 +6,7 @@ resource "aws_vpc" "fgtvm-vpc" {
   enable_classiclink   = false
   instance_tenancy     = "default"
   tags = {
-    Name = "terraform demo"
+    Name = "FortiGate Terraform Test"
   }
 }
 
@@ -15,7 +15,7 @@ resource "aws_subnet" "publicsubnetaz1" {
   cidr_block        = var.publiccidraz1
   availability_zone = var.az1
   tags = {
-    Name = "public subnet az1"
+    Name = "FortiGate Public Subnet az1"
   }
 }
 
@@ -24,6 +24,6 @@ resource "aws_subnet" "privatesubnetaz1" {
   cidr_block        = var.privatecidraz1
   availability_zone = var.az1
   tags = {
-    Name = "private subnet az1"
+    Name = "FortiGate Private Subnet az1"
   }
 }

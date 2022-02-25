@@ -1,12 +1,12 @@
-// Creating Internet Gateway
+// Create Internet Gateway
 resource "aws_internet_gateway" "fgtvmigw" {
   vpc_id = aws_vpc.fgtvm-vpc.id
   tags = {
-    Name = "fgtvm-igw"
+    Name = "FortiGate-igw"
   }
 }
 
-// Route Table
+// Create Route Tables
 resource "aws_route_table" "fgtvmpublicrt" {
   vpc_id = aws_vpc.fgtvm-vpc.id
 
@@ -23,6 +23,7 @@ resource "aws_route_table" "fgtvmprivatert" {
   }
 }
 
+// Create Routes
 resource "aws_route" "externalroute" {
   route_table_id         = aws_route_table.fgtvmpublicrt.id
   destination_cidr_block = "0.0.0.0/0"
@@ -37,6 +38,7 @@ resource "aws_route" "internalroute" {
 
 }
 
+// Associate Route Tables to Subnets
 resource "aws_route_table_association" "public1associate" {
   subnet_id      = aws_subnet.publicsubnetaz1.id
   route_table_id = aws_route_table.fgtvmpublicrt.id
@@ -47,13 +49,17 @@ resource "aws_route_table_association" "internalassociate" {
   route_table_id = aws_route_table.fgtvmprivatert.id
 }
 
+// Create Elastic IP
 resource "aws_eip" "FGTPublicIP" {
   depends_on        = [aws_instance.fgtvm]
   vpc               = true
   network_interface = aws_network_interface.eth0.id
+  tags = {
+    Name = "FortiGate Elastic IP"
+  }
 }
 
-// Security Group
+// Create Security Groups
 
 resource "aws_security_group" "public_allow" {
   name        = "Public Allow"
@@ -90,13 +96,13 @@ resource "aws_security_group" "public_allow" {
   }
 
   tags = {
-    Name = "Public Allow"
+    Name = "FortiGate Public Allow"
   }
 }
 
 resource "aws_security_group" "allow_all" {
   name        = "Allow All"
-  description = "Allow all traffic"
+  description = "Private Allow all traffic"
   vpc_id      = aws_vpc.fgtvm-vpc.id
 
   ingress {
@@ -114,6 +120,6 @@ resource "aws_security_group" "allow_all" {
   }
 
   tags = {
-    Name = "Public Allow"
+    Name = "FortiGate Private Allow"
   }
 }
