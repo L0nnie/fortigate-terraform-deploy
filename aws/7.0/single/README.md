@@ -1,6 +1,6 @@
 # Deployment of a FortiGate-VM (BYOL/PAYG)  on the AWS
 ## Introduction
-A Terraform script to deploy a FortiGate-VM on AWS
+A Terraform script to deploy a FortiGate-VM v7.0 on AWS
 
 ## Requirements
 * [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) >= 1.0.0
