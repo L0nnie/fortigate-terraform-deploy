@@ -16,3 +16,4 @@ terraform.tfstate*
 
 # ignore the pem file
 *.pem
+aws/7.0/single/.terraform.lock.hcl
